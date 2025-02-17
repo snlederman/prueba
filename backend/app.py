@@ -16,27 +16,24 @@ MODEL_PATH = "model.pkl"
 
 def train_model():
     """
-    Extrae los datos de la tabla 'heart_data' y entrena un modelo de ML.
+    Extrae los datos de la tabla 'heart_data' y entrena un modelo de LogisticRegression.
     Se asume que la tabla 'heart_data' tiene las siguientes columnas (excluyendo 'id'):
       age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target.
-    TODO: Define las variables independientes X (todas las columnas excepto 'target') y la variable dependiente y (la columna 'target').
-    TODO: Define el modelo a utilizar (por ejemplo, LogisticRegression).
     """
     query = """
         SELECT age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
         FROM heart_data;
     """
-    # Extraer los datos de la base de datos
     df = pd.read_sql(query, engine)
 
     # TODO: Define X utilizando todas las columnas en el DataFrame 'df' excepto 'target'
-    X = ...
+    X = df.drop(columns=['target']).values
 
     # TODO: Define y utilizando la columna 'target' en el DataFrame 'df'
-    y = ...
+    y = df['target'].values
 
-    # TODO: Define el modelo a utilizar, LogisticRegression()
-    model = ...
+    # TODO: Define el modelo a utilizar, por ejemplo, LogisticRegression()
+    model = LogisticRegression()
 
     model.fit(X, y)
     joblib.dump(model, MODEL_PATH)

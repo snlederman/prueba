@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - solucion
       - 'feature/*'
       - 'develop'
   pull_request:

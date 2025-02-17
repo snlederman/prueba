@@ -1,0 +1,9 @@
+Flask
+Werkzeug
+psycopg2-binary
+SQLAlchemy
+pytest
+requests
+scikit-learn
+joblib
+pandas

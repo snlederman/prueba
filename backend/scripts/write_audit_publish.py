@@ -67,7 +67,6 @@ def audit_data():
     # Auditoría 3: Verificar que 'target' solo contenga 0 o 1
     query_target = """
         -- #TODO: Define el query para verificar que 'target' solo contenga 0 o 1.
-        -- Ejemplo sugerido: SELECT COUNT(*) FROM heart_data_staging WHERE target NOT IN (0, 1);
     """
     cur.execute(query_target)
     count_target = cur.fetchone()[0]
@@ -77,7 +76,6 @@ def audit_data():
     # Auditoría 4: Verificar que 'age' sea mayor que 0
     query_age = """
         -- #TODO: Define el query para verificar que 'age' sea mayor que 0.
-        -- Ejemplo sugerido: SELECT COUNT(*) FROM heart_data_staging WHERE age <= 0;
     """
     cur.execute(query_age)
     count_age = cur.fetchone()[0]
@@ -87,7 +85,6 @@ def audit_data():
     # Auditoría 5: Verificar que 'trestbps' esté en un rango razonable (90-200)
     query_trestbps = """
         -- #TODO: Define el query para verificar que 'trestbps' esté en el rango 90-200.
-        -- Ejemplo sugerido: SELECT COUNT(*) FROM heart_data_staging WHERE trestbps NOT BETWEEN 90 AND 200;
     """
     cur.execute(query_trestbps)
     count_trestbps = cur.fetchone()[0]
@@ -98,7 +95,6 @@ def audit_data():
     # Auditoría 6: Verificar que 'chol' esté en un rango razonable (100-600)
     query_chol = """
         -- #TODO: Define el query para verificar que 'chol' esté en el rango 100-600.
-        -- Ejemplo sugerido: SELECT COUNT(*) FROM heart_data_staging WHERE chol NOT BETWEEN 100 AND 600;
     """
     cur.execute(query_chol)
     count_chol = cur.fetchone()[0]

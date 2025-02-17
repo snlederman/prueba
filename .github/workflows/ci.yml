@@ -31,10 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Build the Docker containers
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Build Containers
         run: docker-compose build --no-cache
 
-      # Run backend tests inside the container
       - name: Run Backend Tests in Container
         run: docker-compose run --rm backend sh -c "cd /app && pytest --maxfail=1 --disable-warnings -q"

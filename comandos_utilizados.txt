@@ -1,0 +1,14 @@
+cd nombre_carpeta::El comando se utilizó para movernos a esa carpeta
+cd .. : El  comando se utilizó para ir a la carpeta padre de la carpeta en la que nos encontramos
+ls: El comando se utilizó para ver los archivos y carpetas dentro de la carpeta en la que nos encontramos
+mv prueba andrea_diaz: El comando se utilizó para mover la carpeta prueba a la carpeta proyecto_andrea
+make up: El comando se utilizó para levantar el contenedor de docket
+make down: El comando se utilizó para apagar el contenedor de docket
+git branch: El comando se utilizó para ver un listado de las ramas en el repositorio
+git branch andrea_diaz: El comando se utilizó para crear la rama con nombre andrea_diaz
+git checkout andrea_diaz: El comando se utilizó para cambiarnos a la rama andrea_diaz
+git help: El comando se utilizó para ver un listado de funciones que se pueden realizar con git
+git add nombre_archivo: El comando se utilizó para agregar los archivos modificados a staging 
+git commit -m mensaje: El comando se utilizó para hacer commit de los archivos agregados anteriormete con git add
+ y se deja un mensaje para explicar los cambios realizados a estos archivos
+git push origin branch: El comando se utilizó para hacer push de los datos

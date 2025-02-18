@@ -154,3 +154,23 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
 ## Activación Automática de Migraciones
 
 El entorno está configurado para que las migraciones se ejecuten automáticamente al iniciar el contenedor del backend, mediante el script `entrypoint.sh`.
+
+
+## Documentacion
+  - Cómo inicializar la base de datos y crear las tablas (`heart_data_staging` y `heart_data`): Se añade la estructura de ambas tablas donde
+heart_data_staging contiene todas las columnas de heart.csv sin ningun CONSTRAINT y también se añade la estructura a la base de datos de producción 
+heart_data donde se incluyen restricciones de NOT NULL para todas las columnas y se especifica que id es la clave primaria
+  - Cómo se ejecuta el proceso de Write – Audit – Publish: Primero se insertan los datos provenientes de heart.csv sin aplicar ninguna restricción,
+luego, en el proceso de auditoria, a las filas de la base de datos de staging se le imponen restricciones, al finalizar este proceso, se insertan en la base
+de datos de produccion. 
+  - Cómo levantar el entorno completo utilizando Docker (incluye el uso del Makefile y la especificación de los hosts/puertos:  
+    - Base de datos: `localhost:5432`  
+    - Superset: `localhost:8088`  
+    - Backend: `localhost:8000`  
+    - Frontend: `localhost:3000`): Se levanta el entorno usando make up en la terminal
+  - Cómo poblar la tabla: Se usó el CSV `data/heart.csv` para poblar inicialmente la base de datos, pero tambien se implementó un 
+  endpoint para que se puedan ingresar datos de esta manera con la ayuda de este API
+  - Cómo consumir el endpoint de predicción: Se debe ingresar al localhost http://localhost:3000
+y allí aparecerá un formulario que contiene todos los campos de la base de datos, una vez se llenen estos
+campos, al hacer click en el botón Predecir Rating, deberá aparecer un número 0 o 1 que indique si está
+en riesgo de padecer una enfermedad (No pude probar el formulario ya que no acepta numeros en los campos Edad y Sexo)

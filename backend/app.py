@@ -28,10 +28,12 @@ def train_model():
         FROM heart_data;
     """
     df = pd.read_sql(query, engine)
-    X = # TODO: Usar los datos de las variables independientes de la tabla de producción (no incluir id)
-    y = # TODO: Usar los datos de la variable dependiente de la tabla de producción
+    columns = ["age","sex","cp","trestbps" ,"chol","fbs","restecg","thalach","exang","oldpeak","slope","ca",
+            "thal"]
+    X = df[df.columns[columns]] # TODO: Usar los datos de las variables independientes de la tabla de producción (no incluir id)
+    y = df[df.columns["target"]]# TODO: Usar los datos de la variable dependiente de la tabla de producción
 
-    model = # TODO: Definir el modelo con Logistic Regression
+    model = LogisticRegression()# TODO: Definir el modelo con Logistic Regression
     model.fit(X, y)
     joblib.dump(model, MODEL_PATH)
     return model

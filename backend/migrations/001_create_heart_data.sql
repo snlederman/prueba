@@ -11,15 +11,15 @@ CREATE TABLE IF NOT EXISTS heart_data_staging (
     cp INTEGER,
     trestbps INTEGER,
     chol INTEGER,
-    fbs BOOLEAN,
+    fbs INTEGER,
     restecg INTEGER,
     thalach INTEGER,
-    exang BOOLEAN,
+    exang INTEGER,
     oldpeak DECIMAL,
     slope INTEGER,
     ca INTEGER,
     thal INTEGER,
-    target BOOLEAN
+    target INTEGER
 );
 
 -- Creación de la tabla de producción: heart_data
@@ -30,15 +30,15 @@ CREATE TABLE IF NOT EXISTS heart_data (
     cp INTEGER NOT NULL,
     trestbps INTEGER NOT NULL,
     chol INTEGER NOT NULL,
-    fbs BOOLEAN NOT NULL,
+    fbs INTEGER NOT NULL,
     restecg INTEGER NOT NULL,
     thalach INTEGER NOT NULL,
-    exang BOOLEAN NOT NULL,
+    exang INTEGER NOT NULL,
     oldpeak DECIMAL NOT NULL,
     slope INTEGER NOT NULL,
     ca INTEGER NOT NULL,
     thal INTEGER NOT NULL,
-    target BOOLEAN NOT NULL
+    target INTEGER NOT NULL
     -- #TODO: Define la columna `id` como PRIMARY KEY.
     -- #TODO: Agrega el resto de las columnas, estableciendo NOT NULL en cada una según el Data Dictionary del CSV.
     -- #TODO: Agrega una restricción UNIQUE para evitar duplicados.

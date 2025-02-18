@@ -7,3 +7,4 @@ requests
 scikit-learn
 joblib
 pandas
+Flask-Cors

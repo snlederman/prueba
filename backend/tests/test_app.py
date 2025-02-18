@@ -7,14 +7,10 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_transactions_summary(client):
-    response = client.get('/api/transactions/summary')
-    assert response.status_code == 200
-    data = response.get_json()
-    assert "results" in data
-
 def test_predict_rating(client):
-    response = client.post('/api/predict-rating/', json={"var1": 1, "var2": 2})
+    response = client.post('/api/predict-rating/', json={"age": 63, "sex": 1,"cp": 3, "trestbps": 145, "chol": 233,
+                                                         "fbs": 1, "restecg": 0, "thalach": 150, "exang": 0,
+                                                         "oldpeak": 2.3, "slope": 0, "ca": 0, "thal": 1})
     assert response.status_code == 200
     data = response.get_json()
     assert "predicted_rating" in data

@@ -43,7 +43,7 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
 
 ### 1. Configuración Inicial, Linux y Git
 - **Directorio de Trabajo:**  
-  - En tu máquina, crea un directorio con tu nombre (por ejemplo, `proyecto_tunombre`).
+  - En tu máquina, crea un directorio con tu nombre (por ejemplo, `proyecto_nombre`).
   - Dentro, crea un archivo llamado `comandos_utilizados.txt` donde documentes **todos los comandos** utilizados (para crear directorios, clonar el repositorio, etc.).
   
 - **Clonado del Repositorio Base:**  
@@ -77,7 +77,7 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
       4. Verificar que `age` sea mayor que 0.
       5. Verificar que `trestbps` esté en el rango 90-200.
       6. Verificar que `chol` esté en el rango 100-600.
-      **[#TODO: Completa los queries SQL para las auditorías 3, 4, 5 y 6]**
+      **[#TODO: Completa las auditorías 3, 4, 5 y 6]**
   
   - **Publish:**  
     - Define el query SQL para migrar los datos desde la tabla de staging a la tabla de producción (`heart_data`) de forma idempotente (por ejemplo, utilizando ON CONFLICT).  
@@ -120,10 +120,7 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
 ### 5. Push Final y CI/CD
 - **Push Final Obligatorio:**  
   - Realiza un push de tus cambios a GitHub en una rama con el formato `nombre-apellido` y abre un Pull Request.
-  
-- **Pushs Intermedios:**  
-  - Se valorará que realices push intermedios para que el pipeline de CI/CD (configurado en `.github/workflows/ci.yml`) verifique el avance y la calidad de la solución.
-  
+
 - **CI/CD:**  
   - El repositorio ya incluye un workflow de CI/CD que ejecuta tests (por ejemplo, para verificar la creación de las tablas y el funcionamiento del endpoint).
   - Asegúrate de que el pipeline pase sin errores.

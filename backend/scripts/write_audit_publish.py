@@ -18,12 +18,12 @@ CSV_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'heart.csv')
 
 
 def safe_int(value):
-    """Converts value to int if possible, or returns None for empty strings."""
+    """Convierte el valor a entero si es posible, o retorna None para cadenas vacías."""
     return int(value) if value.strip() != "" else None
 
 
 def safe_numeric(value):
-    """Converts value to float if possible, or returns None for empty strings."""
+    """Convierte el valor a flotante si es posible, o retorna None para cadenas vacías."""
     return float(value) if value.strip() != "" else None
 
 
@@ -33,7 +33,7 @@ def insert_into_staging():
     with open(CSV_PATH, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # Convert each field: if empty, use None.
+            # Convierte cada campo: si está vacío, utiliza None.
             row_id = safe_int(row['id'])
             age = safe_int(row['age'])
             sex = safe_int(row['sex'])
@@ -50,11 +50,11 @@ def insert_into_staging():
             thal = safe_int(row['thal'])
             target = safe_int(row['target'])
 
-            # Insert the row as it comes into staging (we allow NULLs here)
+            # Inserta la fila tal como llega en staging (aquí permitimos valores NULL).
+            # TODO: Define el query SQL para insertar cada fila del CSV en la tabla 'heart_data_staging'.
+            #  Debes incluir todas las columnas (incluyendo 'id') en el orden del Data Dictionary y utilizar placeholders.
             query = """
-                INSERT INTO heart_data_staging 
-                (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                #TODO: Completar el query de inserción en heart_data_staging
             """
             cur.execute(query, (
                 row_id, age, sex, cp, trestbps, chol, fbs, restecg, thalach,
@@ -79,46 +79,46 @@ def is_valid_row(row, seen_ids):
     for field in mandatory_fields:
         value = row.get(field)
         if value is None or (isinstance(value, str) and value.strip() == ""):
-            errors.append(f"{field} is missing")
+            errors.append(f"{field} falta")
 
-    # Check for duplicate 'id' using the seen_ids set.
+    # Verifica duplicados en 'id' usando el conjunto seen_ids.
     try:
         current_id = int(row['id'])
         if current_id in seen_ids:
-            errors.append("duplicate id")
+            errors.append("id duplicado")
         else:
             seen_ids.add(current_id)
     except Exception:
-        errors.append("id must be an integer")
+        errors.append("El id debe ser único")
 
     # Numeric validations
     try:
         age = int(row['age'])
-        if age <= 0:
-            errors.append("age must be > 0")
+        --  # TODO: Define la condición para verificar que 'age' sea mayor que 0.
+            errors.append("La edad debe ser > 0")
     except Exception:
-        errors.append("age must be an integer")
+        errors.append("La edad debe ser un entero")
 
     try:
         trestbps = int(row['trestbps'])
-        if not (90 <= trestbps <= 200):
-            errors.append("trestbps out of range (90-200)")
+        --  # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+            errors.append("La presión arterial en reposo está fuera del rango (90-200)")
     except Exception:
-        errors.append("trestbps must be an integer")
+        errors.append("La presión arterial en reposo debe ser un entero")
 
     try:
         chol = int(row['chol'])
-        if not (100 <= chol <= 600):
-            errors.append("chol out of range (100-600)")
+        --  # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+            errors.append("El colesterol está fuera del rango (100-600)")
     except Exception:
-        errors.append("chol must be an integer")
+        errors.append("El colesterol debe ser un entero")
 
     try:
         target = int(row['target'])
-        if target not in (0, 1):
-            errors.append("target must be 0 or 1")
+        --  # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+            errors.append("El target debe ser 0 o 1")
     except Exception:
-        errors.append("target must be an integer")
+        errors.append("El target debe ser un entero")
 
     return errors
 
@@ -146,15 +146,14 @@ def publish_data():
         row_dict = dict(row)
         errors = is_valid_row(row_dict, seen_ids)
         if errors:
-            print(f"Skipping row id {row_dict['id']} due to errors: {errors}")
+            print(f"Saltando la fila con id {row_dict['id']} debido al error: {errors}")
             skipped_count += 1
             continue
 
+        # TODO: Define el query SQL para migrar los datos desde 'heart_data_staging' a 'heart_data'
+        #  de forma idempotente (por ejemplo, utilizando ON CONFLICT).
         insert_query = """
-            INSERT INTO heart_data 
-            (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            ON CONFLICT (id) DO NOTHING;
+            #TODO: Completar el query para insertar datos de staging en la tabla de producción.
         """
         cur.execute(insert_query, (
             row_dict['id'], row_dict['age'], row_dict['sex'], row_dict['cp'],
@@ -166,12 +165,16 @@ def publish_data():
 
     conn.commit()
 
-    # Clean up staging: remove all rows after processing
-    cur.execute("DELETE FROM heart_data_staging;")
+    # Limpiar staging: eliminar tabla después de procesar
+    # TODO: Define el query SQL para eliminar la tabla 'heart_data_staging' una vez que los datos han sido publicados.
+    query_cleanup = """
+        #TODO: Completar el query para eliminar la tabla de staging.
+    """
+    cur.execute(query_cleanup)
     conn.commit()
     cur.close()
     conn.close()
-    print(f"Publish process completed: {valid_count} rows migrated, {skipped_count} rows skipped, and staging cleared.")
+    print(f"Proceso de publicación completado: {valid_count} filas migradas, {skipped_count} filas omitidas, y staging limpiado.")
 
 
 if __name__ == "__main__":

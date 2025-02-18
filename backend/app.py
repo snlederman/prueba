@@ -28,10 +28,10 @@ def train_model():
         FROM heart_data;
     """
     df = pd.read_sql(query, engine)
-    X = df.drop(columns=['target']).values
-    y = df['target'].values
+    X = # TODO: Usar los datos de las variables independientes de la tabla de producción (no incluir id)
+    y = # TODO: Usar los datos de la variable dependiente de la tabla de producción
 
-    model = LogisticRegression(max_iter=1000)  # Increase max_iter if needed.
+    model = # TODO: Definir el modelo con Logistic Regression
     model.fit(X, y)
     joblib.dump(model, MODEL_PATH)
     return model
@@ -52,19 +52,19 @@ def predict_rating():
     print("Received data:", data)
     try:
         # Explicitly convert each field to float (or int if preferred)
-        age = float(data.get('age', 0))
-        sex = float(data.get('sex', 0))
-        cp = float(data.get('cp', 0))
-        trestbps = float(data.get('trestbps', 0))
-        chol = float(data.get('chol', 0))
-        fbs = float(data.get('fbs', 0))
-        restecg = float(data.get('restecg', 0))
-        thalach = float(data.get('thalach', 0))
-        exang = float(data.get('exang', 0))
+        age = int(data.get('age', 0))
+        sex = int(data.get('sex', 0))
+        cp = int(data.get('cp', 0))
+        trestbps = int(data.get('trestbps', 0))
+        chol = int(data.get('chol', 0))
+        fbs = int(data.get('fbs', 0))
+        restecg = int(data.get('restecg', 0))
+        thalach = int(data.get('thalach', 0))
+        exang = int(data.get('exang', 0))
         oldpeak = float(data.get('oldpeak', 0))
-        slope = float(data.get('slope', 0))
-        ca = float(data.get('ca', 0))
-        thal = float(data.get('thal', 0))
+        slope = int(data.get('slope', 0))
+        ca = int(data.get('ca', 0))
+        thal = int(data.get('thal', 0))
 
         # Create a NumPy array with the converted values
         X_new = np.array([[age, sex, cp, trestbps, chol, fbs, restecg,

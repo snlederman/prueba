@@ -55,7 +55,7 @@ function PredictionForm() {
           Edad:
           <input
             type="number"
-            name="age"
+            name="Edad"
             value={input.age}
             onChange={handleChange}
             required
@@ -66,134 +66,14 @@ function PredictionForm() {
           Sexo:
           <input
             type="number"
-            name="sex"
+            name="Sexo"
             value={input.sex}
             onChange={handleChange}
             required
           />
         </label>
         <br />
-        <label>
-          Chest Pain Type (cp):
-          <input
-            type="number"
-            name="cp"
-            value={input.cp}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Resting Blood Pressure (trestbps):
-          <input
-            type="number"
-            name="trestbps"
-            value={input.trestbps}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Cholesterol (chol):
-          <input
-            type="number"
-            name="chol"
-            value={input.chol}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Fasting Blood Sugar (fbs):
-          <input
-            type="number"
-            name="fbs"
-            value={input.fbs}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Resting ECG (restecg):
-          <input
-            type="number"
-            name="restecg"
-            value={input.restecg}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Maximum Heart Rate (thalach):
-          <input
-            type="number"
-            name="thalach"
-            value={input.thalach}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Exercise Induced Angina (exang):
-          <input
-            type="number"
-            name="exang"
-            value={input.exang}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Oldpeak:
-          <input
-            type="number"
-            name="oldpeak"
-            value={input.oldpeak}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Slope:
-          <input
-            type="number"
-            name="slope"
-            value={input.slope}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Number of Major Vessels (ca):
-          <input
-            type="number"
-            name="ca"
-            value={input.ca}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Thal:
-          <input
-            type="number"
-            name="thal"
-            value={input.thal}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
+        {/* #TODO: agregar el resto de las variables que hace falta */}
         <button type="submit" disabled={loading}>
           {loading ? 'Procesando...' : 'Predecir Rating'}
         </button>

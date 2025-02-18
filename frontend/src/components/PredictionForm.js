@@ -73,6 +73,116 @@ function PredictionForm() {
           />
         </label>
         <br />
+        <label>
+          Tipo de dolor de pecho:
+          <input
+            type="number"
+            name="cp"
+            value={input.cp}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Presion arterial en reposo:
+          <input
+            type="number"
+            name="trestbps"
+            value={input.trestbps}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Colesterol serico:
+          <input
+            type="number"
+            name="chol"
+            value={input.chol}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Resultados electrocardiograma en reposo:
+          <input
+            type="number"
+            name="restecg"
+            value={input.restecg}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Frecuencia cardiaca maxima:
+          <input
+            type="number"
+            name="thalach"
+            value={input.thalach}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Angina inducida por ejercicio:
+          <input
+            type="number"
+            name="exang"
+            value={input.exang}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Depresion en segmento ST:
+          <input
+            type="number"
+            name="oldpeak"
+            value={input.oldpeak}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Pendiente de segmento ST:
+          <input
+            type="number"
+            name="slope"
+            value={input.slope}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Numero de vasos principales:
+          <input
+            type="number"
+            name="ca"
+            value={input.ca}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Estado de la tiroides:
+          <input
+            type="number"
+            name="thal"
+            value={input.thal}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
         {/* #TODO: agregar el resto de las variables que hace falta */}
         <button type="submit" disabled={loading}>
           {loading ? 'Procesando...' : 'Predecir Rating'}

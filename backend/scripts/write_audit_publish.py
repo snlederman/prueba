@@ -13,13 +13,15 @@ import os
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/mydb")
 CSV_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'heart.csv')
 
+
 def insert_into_staging():
     conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
     with open(CSV_PATH, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # Query para insertar cada fila en la tabla 'heart_data_staging'
+            # TODO: Define el query SQL para insertar cada fila del CSV en la tabla 'heart_data_staging'
+            # Debes incluir todas las columnas (incluyendo 'id') en el orden del Data Dictionary y utilizar placeholders.
             query = """
                 INSERT INTO heart_data_staging (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -35,9 +37,11 @@ def insert_into_staging():
     conn.close()
     print("Datos insertados en staging.")
 
+
 def audit_data():
     conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
+    errors = []
 
     # Auditoría 1: Verificar duplicados en la columna 'id'
     query_dup = """
@@ -48,17 +52,19 @@ def audit_data():
     cur.execute(query_dup)
     duplicates = cur.fetchall()
     if duplicates:
-        raise Exception(f"Se encontraron registros duplicados en 'id' en la tabla de staging: {duplicates}")
+        errors.append(f"Duplicados en 'id': {duplicates}")
 
-    # Auditoría 2: Verificar que las columnas obligatorias (id, age, target) no tengan valores nulos
+    # Auditoría 2: Verificar que las columnas obligatorias no tengan valores nulos
     query_null = """
         SELECT COUNT(*) FROM heart_data_staging
-        WHERE id IS NULL OR age IS NULL OR target IS NULL;
+        WHERE id IS NULL OR age IS NULL OR sex IS NULL OR cp IS NULL OR trestbps IS NULL OR chol IS NULL 
+          OR fbs IS NULL OR restecg IS NULL OR thalach IS NULL OR exang IS NULL OR oldpeak IS NULL 
+          OR slope IS NULL OR ca IS NULL OR thal IS NULL OR target IS NULL;
     """
     cur.execute(query_null)
     null_count = cur.fetchone()[0]
     if null_count > 0:
-        raise Exception(f"Se encontraron {null_count} registros con valores nulos en columnas obligatorias en la tabla de staging.")
+        errors.append(f"Valores nulos en columnas obligatorias: {null_count}")
 
     # Auditoría 3: Verificar que 'target' solo contenga 0 o 1
     query_target = """
@@ -68,7 +74,7 @@ def audit_data():
     cur.execute(query_target)
     count_target = cur.fetchone()[0]
     if count_target > 0:
-        raise Exception(f"Se encontraron {count_target} registros con 'target' inválido en la tabla de staging.")
+        errors.append(f"'target' inválido (no 0 o 1): {count_target}")
 
     # Auditoría 4: Verificar que 'age' sea mayor que 0
     query_age = """
@@ -78,7 +84,7 @@ def audit_data():
     cur.execute(query_age)
     count_age = cur.fetchone()[0]
     if count_age > 0:
-        raise Exception(f"Se encontraron {count_age} registros con 'age' inválido en la tabla de staging.")
+        errors.append(f"'age' inválido (<= 0): {count_age}")
 
     # Auditoría 5: Verificar que 'trestbps' esté en el rango 90-200
     query_trestbps = """
@@ -88,7 +94,7 @@ def audit_data():
     cur.execute(query_trestbps)
     count_trestbps = cur.fetchone()[0]
     if count_trestbps > 0:
-        raise Exception(f"Se encontraron {count_trestbps} registros con 'trestbps' fuera del rango permitido (90-200) en la tabla de staging.")
+        errors.append(f"'trestbps' fuera de rango (90-200): {count_trestbps}")
 
     # Auditoría 6: Verificar que 'chol' esté en el rango 100-600
     query_chol = """
@@ -98,16 +104,24 @@ def audit_data():
     cur.execute(query_chol)
     count_chol = cur.fetchone()[0]
     if count_chol > 0:
-        raise Exception(f"Se encontraron {count_chol} registros con 'chol' fuera del rango permitido (100-600) en la tabla de staging.")
+        errors.append(f"'chol' fuera de rango (100-600): {count_chol}")
 
     cur.close()
     conn.close()
-    print("Auditoría de datos completada: datos válidos.")
+
+    if errors:
+        print("Auditoría completada con los siguientes problemas encontrados:")
+        for error in errors:
+            print(error)
+    else:
+        print("Auditoría completada: todos los datos son válidos.")
+
 
 def publish_data():
     conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
-    # Query para migrar datos de staging a producción de forma idempotente
+    # TODO: Define el query SQL para migrar los datos desde 'heart_data_staging' a 'heart_data'
+    # de forma idempotente (por ejemplo, utilizando ON CONFLICT).
     query_insert = """
         INSERT INTO heart_data (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
         SELECT id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
@@ -117,15 +131,14 @@ def publish_data():
     cur.execute(query_insert)
     conn.commit()
 
-    # Query para limpiar la tabla de staging
-    query_cleanup = """
-        DELETE FROM heart_data_staging;
-    """
+    # TODO: Define el query SQL para limpiar la tabla 'heart_data_staging'
+    query_cleanup = "DELETE FROM heart_data_staging;"
     cur.execute(query_cleanup)
     conn.commit()
     cur.close()
     conn.close()
     print("Datos publicados en producción y staging limpiada.")
+
 
 if __name__ == "__main__":
     print("Iniciando proceso Write – Audit – Publish...")

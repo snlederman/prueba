@@ -154,3 +154,6 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
 ## Activación Automática de Migraciones
 
 El entorno está configurado para que las migraciones se ejecuten automáticamente al iniciar el contenedor del backend, mediante el script `entrypoint.sh`.
+
+
+README de daniel

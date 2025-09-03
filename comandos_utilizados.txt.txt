@@ -1,0 +1,6 @@
+PS C:\Users\danpe> cd "C:\Users\danpe\OneDrive\Documents\ProyectoCAF_DanielPerez"  ##Entrar en carpera de proyecto
+git clone https://github.com/snlederman/prueba  ##Clonar repositorio
+git checkout -b daniel-perez ##Crea una rama 
+git add . ## Agrega todos los cambios
+git commit -m " Actividades ,2 y 4 realizadas, la actividad 3 no se puede realizar por un problema de versiones en mi laptop con docker, habia que istalar nueva version de Linux y no hay tiempo necesario, de resto todo completo" ##commit con descripcion
+

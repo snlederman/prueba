@@ -49,13 +49,13 @@ function PredictionForm() {
   };
 
   return (
-    <div>
+<div>
       <form onSubmit={handleSubmit}>
         <label>
           Edad:
           <input
             type="number"
-            name="Edad"
+            name="age"
             value={input.age}
             onChange={handleChange}
             required
@@ -63,23 +63,160 @@ function PredictionForm() {
         </label>
         <br />
         <label>
-          Sexo:
+          Sexo (1=masculino, 0=femenino):
           <input
             type="number"
-            name="Sexo"
+            name="sex"
             value={input.sex}
+            onChange={handleChange}
+            min="0"
+            max="1"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Tipo de dolor pecho (cp 0-3):
+          <input
+            type="number"
+            name="cp"
+            value={input.cp}
+            onChange={handleChange}
+            min="0"
+            max="3"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Presión arterial (trestbps):
+          <input
+            type="number"
+            name="trestbps"
+            value={input.trestbps}
             onChange={handleChange}
             required
           />
         </label>
         <br />
-        {/* #TODO: agregar el resto de las variables que hace falta */}
+        <label>
+          Colesterol (chol):
+          <input
+            type="number"
+            name="chol"
+            value={input.chol}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Glucosa ayunas (fbs 0-1):
+          <input
+            type="number"
+            name="fbs"
+            value={input.fbs}
+            onChange={handleChange}
+            min="0"
+            max="1"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Electrocardiograma (restecg 0-2):
+          <input
+            type="number"
+            name="restecg"
+            value={input.restecg}
+            onChange={handleChange}
+            min="0"
+            max="2"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Frecuencia cardíaca máxima (thalach):
+          <input
+            type="number"
+            name="thalach"
+            value={input.thalach}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Angina inducida (exang 0-1):
+          <input
+            type="number"
+            name="exang"
+            value={input.exang}
+            onChange={handleChange}
+            min="0"
+            max="1"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Depresión ST (oldpeak):
+          <input
+            type="number"
+            name="oldpeak"
+            value={input.oldpeak}
+            onChange={handleChange}
+            step="0.1"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Pendiente ST (slope 0-2):
+          <input
+            type="number"
+            name="slope"
+            value={input.slope}
+            onChange={handleChange}
+            min="0"
+            max="2"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Vasos principales (ca 0-3):
+          <input
+            type="number"
+            name="ca"
+            value={input.ca}
+            onChange={handleChange}
+            min="0"
+            max="3"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Tiroides (thal 1-3):
+          <input
+            type="number"
+            name="thal"
+            value={input.thal}
+            onChange={handleChange}
+            min="1"
+            max="3"
+            required
+          />
+        </label>
+        <br />
         <button type="submit" disabled={loading}>
-          {loading ? 'Procesando...' : 'Predecir Rating'}
+          {loading ? 'Procesando...' : 'Predecir Enfermedad Cardíaca'}
         </button>
       </form>
       {prediction !== null && (
-        <p>Predicción: {prediction}</p>
+        <p>Predicción: {prediction === 1 ? 'Presencia de enfermedad' : 'Sin enfermedad'}</p>
       )}
     </div>
   );

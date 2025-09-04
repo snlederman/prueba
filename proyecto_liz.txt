@@ -1,0 +1,117 @@
+PS C:\Users\Liz> cd Desktop
+PS C:\Users\Liz\Desktop> cd proyecto_caf
+PS C:\Users\Liz\Desktop\proyecto_caf> git clone https://github.com/snlederman/prueba.git
+Cloning into 'prueba'...
+remote: Enumerating objects: 141, done.
+remote: Counting objects: 100% (141/141), done.
+remote: Compressing objects: 100% (89/89), done.
+Receiving objects:  68% (96/141)remote: Total 141 (delta 46), reused 123 (delta 28), pack-reused 0 (from 0)
+Receiving objects: 100% (141/141), 33.72 KiB | 1.53 MiB/s, done.
+Resolving deltas: 100% (46/46), done.
+PS C:\Users\Liz\Desktop\proyecto_caf> cd .\prueba\
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> code .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> docker logs prueba-backend-1        
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> docker-compose up --build  
+
+*****(Se perdieron comandos al instalar docker dado que se reinicio windows)*****
+
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> docker restart prueba-superset-1                                                                                                            
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> docker logs prueba-superset-1      
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+  main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git commit -m 'ejs listos'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+  main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+  main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+  main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git checkout -b liz-ugas
+Switched to a new branch 'liz-ugas'
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git branch
+* liz-ugas
+  main
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git commit -m 'ejs listos'
+[liz-ugas 2f73fbf] ejs listos
+ 6 files changed, 216 insertions(+), 20 deletions(-)
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git commit -m 'entrega final'
+On branch liz-ugas
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git add .                    
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git commit -m 'entrega final'
+[liz-ugas a81c24d] entrega final
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+PS C:\Users\Liz\Desktop\proyecto_caf\prueba> git push origin liz-ugas
+Enumerating objects: 35, done.
+Counting objects: 100% (35/35), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (18/18), done.
+Writing objects: 100% (19/19), 3.87 KiB | 1.29 MiB/s, done.
+Total 19 (delta 9), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (9/9), completed with 8 local objects.
+remote: 
+remote: Create a pull request for 'liz-ugas' on GitHub by visiting:
+remote:      https://github.com/snlederman/prueba/pull/new/liz-ugas
+remote:
+To https://github.com/snlederman/prueba.git
+ * [new branch]      liz-ugas -> liz-ugas                                                                                                         
+

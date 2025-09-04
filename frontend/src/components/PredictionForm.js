@@ -52,10 +52,10 @@ function PredictionForm() {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          Edad:
+          edad:
           <input
             type="number"
-            name="Edad"
+            name="age"
             value={input.age}
             onChange={handleChange}
             required
@@ -66,14 +66,137 @@ function PredictionForm() {
           Sexo:
           <input
             type="number"
-            name="Sexo"
+            name="sex"
             value={input.sex}
             onChange={handleChange}
             required
-          />
+          /> 
         </label>
         <br />
         {/* #TODO: agregar el resto de las variables que hace falta */}
+        <label>
+          cp:
+          <input
+            type="number"
+            name="cp"
+            value={input.cp}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          trestbps:
+          <input
+            type="number"
+            name="trestbps"
+            value={input.trestbps}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          chol:
+          <input
+            type="number"
+            name="chol"
+            value={input.chol}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          fbs:
+          <input
+            type="number"
+            name="fbs"
+            value={input.fbs}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          restecg:
+          <input
+            type="number"
+            name="restecg"
+            value={input.restecg}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          thalach:
+          <input
+            type="number"
+            name="thalach"
+            value={input.thalach}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          exang:
+          <input
+            type="number"
+            name="exang"
+            value={input.exang}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          oldpeak:
+          <input
+            type="number"
+            name="oldpeak"
+            value={input.oldpeak}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          slope:
+          <input
+            type="number"
+            name="slope"
+            value={input.slope}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          ca:
+          <input
+            type="number"
+            name="ca"
+            value={input.ca}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          thal:
+          <input
+            type="number"
+            name="thal"
+            value={input.thal}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />        
+        
+
         <button type="submit" disabled={loading}>
           {loading ? 'Procesando...' : 'Predecir Rating'}
         </button>

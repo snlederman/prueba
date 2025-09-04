@@ -21,17 +21,24 @@ def train_model():
     """
     Extract data from the 'heart_data' table and train a LogisticRegression model.
     Assumes the table has the following columns (excluding 'id'):
-      age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target.
+    age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target.
     """
     query = """
         SELECT age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
         FROM heart_data;
     """
     df = pd.read_sql(query, engine)
-    X = # TODO: Usar los datos de las variables independientes de la tabla de producción (no incluir id)
-    y = # TODO: Usar los datos de la variable dependiente de la tabla de producción
+    # X = # TODO: Usar los datos de las variables independientes de la tabla de producción (no incluir id)
+    # y = # TODO: Usar los datos de la variable dependiente de la tabla de producción
+    # Definir variables independientes (X) y dependiente (y)
+    X = df.drop(columns=['target'])
+    y = df['target']
 
-    model = # TODO: Definir el modelo con Logistic Regression
+    # Definir el modelo a utilizar
+    model = LogisticRegression(solver='liblinear', random_state=0)
+
+
+   #model = # TODO: Definir el modelo con Logistic Regression
     model.fit(X, y)
     joblib.dump(model, MODEL_PATH)
     return model
@@ -46,7 +53,7 @@ def predict_rating():
     """
     Endpoint to predict 'target' using the trained model.
     Expects a JSON with the following numeric fields:
-      - age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal
+    - age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal
     """
     data = request.get_json()
     print("Received data:", data)

@@ -3,9 +3,9 @@
 Script para ejecutar el proceso Write – Audit – Publish:
 - Inserta datos en la tabla de staging.
 - Aplica auditorías de calidad (utilizando queries SQL para auditorías globales
-  y validación por fila para determinar si cada registro es válido).
+y validación por fila para determinar si cada registro es válido).
 - Inserta de forma idempotente en la tabla de producción solo los registros válidos
-  y limpia la tabla de staging.
+y limpia la tabla de staging.
 """
 
 import psycopg2
@@ -54,7 +54,11 @@ def insert_into_staging():
             # TODO: Define el query SQL para insertar cada fila del CSV en la tabla 'heart_data_staging'.
             #  Debes incluir todas las columnas (incluyendo 'id') en el orden del Data Dictionary y utilizar placeholders.
             query = """
-                #TODO: Completar el query de inserción en heart_data_staging
+            INSERT INTO heart_data_staging (
+                id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            )
             """
             cur.execute(query, (
                 row_id, age, sex, cp, trestbps, chol, fbs, restecg, thalach,
@@ -94,28 +98,31 @@ def is_valid_row(row, seen_ids):
     # Numeric validations
     try:
         age = int(row['age'])
-        --  # TODO: Define la condición para verificar que 'age' sea mayor que 0.
+
+        if age <= 0:
             errors.append("La edad debe ser > 0")
     except Exception:
         errors.append("La edad debe ser un entero")
 
     try:
         trestbps = int(row['trestbps'])
-        --  # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+
+        if trestbps < 90 or trestbps > 200:
             errors.append("La presión arterial en reposo está fuera del rango (90-200)")
     except Exception:
         errors.append("La presión arterial en reposo debe ser un entero")
 
     try:
         chol = int(row['chol'])
-        --  # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+
+        if chol < 100 or chol > 600:
             errors.append("El colesterol está fuera del rango (100-600)")
     except Exception:
         errors.append("El colesterol debe ser un entero")
 
     try:
         target = int(row['target'])
-        --  # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+        if target not in [0, 1]:
             errors.append("El target debe ser 0 o 1")
     except Exception:
         errors.append("El target debe ser un entero")
@@ -152,8 +159,13 @@ def publish_data():
 
         # TODO: Define el query SQL para migrar los datos desde 'heart_data_staging' a 'heart_data'
         #  de forma idempotente (por ejemplo, utilizando ON CONFLICT).
+        #TODO: Completar el query para insertar datos de staging en la tabla de producción.
         insert_query = """
-            #TODO: Completar el query para insertar datos de staging en la tabla de producción.
+            INSERT INTO heart_data (
+                id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            ) ON CONFLICT (id) DO NOTHING;
         """
         cur.execute(insert_query, (
             row_dict['id'], row_dict['age'], row_dict['sex'], row_dict['cp'],
@@ -168,7 +180,7 @@ def publish_data():
     # Limpiar staging: eliminar tabla después de procesar
     # TODO: Define el query SQL para eliminar la tabla 'heart_data_staging' una vez que los datos han sido publicados.
     query_cleanup = """
-        #TODO: Completar el query para eliminar la tabla de staging.
+        TRUNCATE TABLE heart_data_staging;
     """
     cur.execute(query_cleanup)
     conn.commit()

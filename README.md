@@ -131,14 +131,28 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
 - **Documentación:**  
   Actualiza este README con instrucciones detalladas sobre:
   - Cómo inicializar la base de datos y crear las tablas (`heart_data_staging` y `heart_data`).
-  - Cómo se ejecuta el proceso de Write – Audit – Publish.
+      Se crean las tablas en un archivo sql indicando nombre y atributos
+- Cómo se ejecuta el proceso de Write – Audit – Publish.
+    Write (Escritura): Los datos se escriben en la tabla de staging (heart_data_staging) directamente desde el archivo CSV data/heart.csv.
+    Audit (Auditoría): Se validan las filas en staging para detectar valores nulos, duplicados y otros errores.
+    Publish (Publicación): Solo las filas que superan la auditoría se migran a la tabla de producción (heart_data)
+
   - Cómo levantar el entorno completo utilizando Docker (incluye el uso del Makefile y la especificación de los hosts/puertos:  
     - Base de datos: `localhost:5432`  
     - Superset: `localhost:8088`  
     - Backend: `localhost:8000`  
     - Frontend: `localhost:3000`)
+
+    Como ya esta configurado superset_config.py y el Makefile, se ejecuta en la terminal el comando para inicializar Docker, ya dentro de Docker Desktop se pueden abrir los entornos.
+    Para subir la bdd a Superset, lo hice manualmente.
+  
   - Cómo poblar la tabla: especifica que se usó el CSV `data/heart.csv` como fuente obligatoria (la alimentación desde un API es opcional y se puede dejar como bonus).
+  
+
   - Cómo consumir el endpoint de predicción (y, opcionalmente, el resumen generado por ChatGPT).
+  - 
+    El backend expone un endpoint de predicción que utiliza el modelo de machine learning entrenado para clasificar si un paciente tiene una enfermedad cardíaca. 
+    El frontend en localhost:3000 ya está configurado para consumir este endpoint a través de su formulario.
   
 - **Registro de Comandos:**  
   El archivo `comandos_utilizados.txt` debe contener todos los comandos utilizados en la terminal.

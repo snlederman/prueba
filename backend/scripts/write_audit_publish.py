@@ -55,6 +55,8 @@ def insert_into_staging():
             #  Debes incluir todas las columnas (incluyendo 'id') en el orden del Data Dictionary y utilizar placeholders.
             query = """
                 #TODO: Completar el query de inserción en heart_data_staging
+                INSERT INTO heart_data_staging (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)     
             """
             cur.execute(query, (
                 row_id, age, sex, cp, trestbps, chol, fbs, restecg, thalach,
@@ -95,6 +97,7 @@ def is_valid_row(row, seen_ids):
     try:
         age = int(row['age'])
         --  # TODO: Define la condición para verificar que 'age' sea mayor que 0.
+        if  ( age <= 0 ) then
             errors.append("La edad debe ser > 0")
     except Exception:
         errors.append("La edad debe ser un entero")
@@ -102,6 +105,7 @@ def is_valid_row(row, seen_ids):
     try:
         trestbps = int(row['trestbps'])
         --  # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+        if ( trestbps < 90 or trestbps > 200 ) then
             errors.append("La presión arterial en reposo está fuera del rango (90-200)")
     except Exception:
         errors.append("La presión arterial en reposo debe ser un entero")
@@ -109,6 +113,7 @@ def is_valid_row(row, seen_ids):
     try:
         chol = int(row['chol'])
         --  # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+        if ( chol < 100 or chol > 600 ) then
             errors.append("El colesterol está fuera del rango (100-600)")
     except Exception:
         errors.append("El colesterol debe ser un entero")
@@ -116,6 +121,7 @@ def is_valid_row(row, seen_ids):
     try:
         target = int(row['target'])
         --  # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+        if ( target != 0 and target != 1 ) then
             errors.append("El target debe ser 0 o 1")
     except Exception:
         errors.append("El target debe ser un entero")
@@ -153,6 +159,11 @@ def publish_data():
         # TODO: Define el query SQL para migrar los datos desde 'heart_data_staging' a 'heart_data'
         #  de forma idempotente (por ejemplo, utilizando ON CONFLICT).
         insert_query = """
+        INSERT INTO heart_data (id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        FROM heart_data_staging;
+        ON CONFLICT (id) DO NOTHING;
+        
             #TODO: Completar el query para insertar datos de staging en la tabla de producción.
         """
         cur.execute(insert_query, (
@@ -169,6 +180,8 @@ def publish_data():
     # TODO: Define el query SQL para eliminar la tabla 'heart_data_staging' una vez que los datos han sido publicados.
     query_cleanup = """
         #TODO: Completar el query para eliminar la tabla de staging.
+
+        DROP TABLE IF EXISTS heart_data_staging;
     """
     cur.execute(query_cleanup)
     conn.commit()
@@ -182,3 +195,17 @@ if __name__ == "__main__":
     insert_into_staging()
     publish_data()
     print("Proceso completado.")
+
+
+
+querie 1:
+
+SELECT age, AVG(target) as promedio ;
+FROM heart_data
+GROUP BY age
+ORDER BY age ASC;
+
+SELECT cp , COUNT(ID) as cantidad_registros
+FROM heart_data
+GROUP BY cp
+ORDER BY cantidad_registros ASC;

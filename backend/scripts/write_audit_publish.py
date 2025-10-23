@@ -51,11 +51,15 @@ def insert_into_staging():
             target = safe_int(row['target'])
 
             # Inserta la fila tal como llega en staging (aquí permitimos valores NULL).
-            # TODO: Define el query SQL para insertar cada fila del CSV en la tabla 'heart_data_staging'.
-            #  Debes incluir todas las columnas (incluyendo 'id') en el orden del Data Dictionary y utilizar placeholders.
-            query = """
-                #TODO: Completar el query de inserción en heart_data_staging
-            """
+            # Query SQL para insertar cada fila del CSV en la tabla 'heart_data_staging'.
+            # Se incluyen todas las columnas en el mismo orden que el CSV y se usan
+            # placeholders (%s) para psycopg2.
+            query = (
+                "INSERT INTO heart_data_staging ("
+                "id, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal, target) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            )
+
             cur.execute(query, (
                 row_id, age, sex, cp, trestbps, chol, fbs, restecg, thalach,
                 exang, oldpeak, slope, ca, thal, target
@@ -94,28 +98,32 @@ def is_valid_row(row, seen_ids):
     # Numeric validations
     try:
         age = int(row['age'])
-        --  # TODO: Define la condición para verificar que 'age' sea mayor que 0.
+        #TODO: Define la condición para verificar que 'age' sea mayor que 0.
+        if age <=0:
             errors.append("La edad debe ser > 0")
     except Exception:
-        errors.append("La edad debe ser un entero")
+        errors.append("La edad debe ser mayor a 0")
 
     try:
         trestbps = int(row['trestbps'])
-        --  # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+         # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+        if not (90 <= trestbps <= 200):
             errors.append("La presión arterial en reposo está fuera del rango (90-200)")
     except Exception:
         errors.append("La presión arterial en reposo debe ser un entero")
 
     try:
         chol = int(row['chol'])
-        --  # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+         # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+        if not (100 <= chol <= 600):
             errors.append("El colesterol está fuera del rango (100-600)")
     except Exception:
         errors.append("El colesterol debe ser un entero")
 
     try:
         target = int(row['target'])
-        --  # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+        # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+        if target not in (0, 1):
             errors.append("El target debe ser 0 o 1")
     except Exception:
         errors.append("El target debe ser un entero")

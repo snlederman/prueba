@@ -11,8 +11,28 @@ Demostrar habilidades en:
 
 > **Nota:**  
 > Se debe utilizar Docker para levantar todos los servicios (base de datos, Superset, backend y frontend). Se proveen un `docker-compose.yml` y un `Makefile` con comandos preconfigurados (por ejemplo, `make up` para levantar el entorno) para que el despliegue sea reproducible.  
+>
 > Ante cualquier duda, se espera que preguntes, ya que la actitud proactiva es fundamental en nuestro entorno de trabajo.  
 >  
+> **Nota importante para Windows (CRLF vs LF)**  
+> Si estás en **Windows**, algunos archivos `.sh` (por ejemplo `entrypoint.sh`) pueden quedar con finales de línea **CRLF**.  
+> En contenedores Linux esto suele causar errores como:
+> ```text
+> bad interpreter: /bin/bash^M: no such file or directory
+> : not found
+> ```
+>
+> **Solución recomendada (VS Code):**
+> 1. Abre el archivo (ej.: `backend/entrypoint.sh`)
+> 2. En la esquina inferior derecha haz clic donde dice `CRLF`
+> 3. Cambia a `LF`
+> 4. Guarda el archivo y vuelve a ejecutar el deploy
+>
+> **Solución con Git (recomendado para evitar que vuelva a pasar):**
+> ```bash
+> git config --global core.autocrlf input
+> ```
+>
 > **Uso de Materiales Externos:**  
 > Está permitido y se alienta el uso de recursos en internet, incluyendo herramientas de IA como ChatGPT, para avanzar en el ejercicio y resolver dudas. Verifica siempre el código generado para evitar errores.
 
@@ -94,6 +114,24 @@ Todas las columnas son obligatorias y deben incluirse en la definición de la ta
     - “Número de registros por grupo de `cp`.”
     - **[#TODO: Completa y ajusta los queries según lo solicitado]**
   - Construye visualizaciones (gráficos de barras, líneas o pie) basadas en esos queries y agrúpalas en un dashboard.
+
+- **Evidencia obligatoria (capturas) – Superset no persistente**
+En esta configuración, **los charts y dashboards de Superset pueden no persistir** entre reinicios de contenedores si no se ha configurado una metabase/volúmenes persistentes.  
+Para que el resultado sea evaluable, se solicita **subir evidencia en forma de imágenes** al repositorio.
+
+**Carpeta de entrega:**
+- `superset/evidencia/`
+
+**Archivos requeridos (nombres sugeridos):**
+- `01_sql_lab_promedio_target_por_rango_edad.png`
+- `02_chart_promedio_target_por_rango_edad.png`
+- `03_chart_registros_por_cp.png`
+- `04_dashboard_final.png`
+
+**Checklist mínimo de cada captura:**
+- Se ve el host/puerto de Superset (ej.: `http://localhost:8088`)
+- Se ve el dataset / tabla `heart_data`
+- Se ven agrupaciones y ejes correctos según las consultas pedidas
 
 ---
 

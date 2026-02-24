@@ -94,28 +94,28 @@ def is_valid_row(row, seen_ids):
     # Numeric validations
     try:
         age = int(row['age'])
-        --  # TODO: Define la condición para verificar que 'age' sea mayor que 0.
+        # TODO: Define la condición para verificar que 'age' sea mayor que 0.
             errors.append("La edad debe ser > 0")
     except Exception:
         errors.append("La edad debe ser un entero")
 
     try:
         trestbps = int(row['trestbps'])
-        --  # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
+        # TODO: Define la condición para verificar que 'trestbps' esté en el rango 90-200.
             errors.append("La presión arterial en reposo está fuera del rango (90-200)")
     except Exception:
         errors.append("La presión arterial en reposo debe ser un entero")
 
     try:
         chol = int(row['chol'])
-        --  # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
+        # TODO: Define la condición para verificar que 'chol' esté en el rango 100-600.
             errors.append("El colesterol está fuera del rango (100-600)")
     except Exception:
         errors.append("El colesterol debe ser un entero")
 
     try:
         target = int(row['target'])
-        --  # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
+        # TODO: Define la condición para verificar que 'target' solo contenga 0 o 1.
             errors.append("El target debe ser 0 o 1")
     except Exception:
         errors.append("El target debe ser un entero")
